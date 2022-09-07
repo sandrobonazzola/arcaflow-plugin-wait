@@ -4,6 +4,6 @@ services:
     image: ghcr.io/arcalot/arcaflow-plugin-template
     build: .
     volumes:
-      - source: ./example.yaml
-        target: /config/example.yaml
+      - source: ./wait.yaml
+        target: /config/wait.yaml
         type: bind
