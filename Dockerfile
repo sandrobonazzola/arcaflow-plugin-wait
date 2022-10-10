@@ -21,5 +21,5 @@ LABEL org.opencontainers.image.source="https://github.com/arcalot/arcaflow-plugi
 LABEL org.opencontainers.image.licenses="Apache-2.0+GPL-2.0-only"
 LABEL org.opencontainers.image.vendor="Arcalot project"
 LABEL org.opencontainers.image.authors="Arcalot contributors"
-LABEL org.opencontainers.image.title="Python Plugin Template"
+LABEL org.opencontainers.image.title="Python Wait Plugin"
 LABEL io.github.arcalot.arcaflow.plugin.version="1"
