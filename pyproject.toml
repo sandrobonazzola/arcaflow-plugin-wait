@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "arcaflow_plugin_wait"
+# Do not change, the version is automatically updated in CI.
+version = "0.0.0"
+authors = [
+]
+description = "Python Wait Plugin for Arcaflow"
+readme = "README.md"
+license = { text="Apache-2.0" }
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  'arcaflow-plugin-sdk-python >= 0.8.0',
+]
+
+[project.urls]
+"Homepage" = "https://github.com/arcalot/arcaflow-plugin-wait"
+"Bug Tracker" = "https://github.com/arcalot/arcaflow-plugin-wait/issues"
