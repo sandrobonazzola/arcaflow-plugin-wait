@@ -6,7 +6,7 @@ on:
   pull_request:
 env:
   IMAGE_NAME: arcaflow-plugin-wait
-  IMAGE_TAG: 'latest'
+  IMAGE_TAG: '0.0.1'
   GITHUB_USERNAME: ${{ github.actor }}
   GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
   GITHUB_NAMESPACE: ${{ github.repository_owner }}
