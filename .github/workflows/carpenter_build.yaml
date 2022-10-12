@@ -1,12 +1,9 @@
 name: Carpentry
 on:
-  push:
-    branches:
-      - main
   pull_request:
 env:
   IMAGE_NAME: arcaflow-plugin-wait
-  IMAGE_TAG: 'latest'
+  IMAGE_TAG: 'dev-build'
   GITHUB_USERNAME: ${{ github.actor }}
   GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
   GITHUB_NAMESPACE: ${{ github.repository_owner }}
@@ -23,4 +20,4 @@ jobs:
       - name: carpenter build
         uses: arcalot/arcaflow-plugin-image-builder@main
         with:
-          args: build --build --push
+          args: build --build
