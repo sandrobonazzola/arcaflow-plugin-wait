@@ -2,7 +2,8 @@ FROM quay.io/centos/centos:stream8
 
 RUN dnf -y module install python39 && dnf -y install python39 python39-pip git
 RUN mkdir /app
-ADD LICENSE /app
+# this is to satisfy arcaflow-plugin-image-builder but the local license file is the same.
+ADD https://raw.githubusercontent.com/arcalot/arcaflow-plugins/main/LICENSE /app
 ADD wait_plugin.py /app
 ADD test_wait_plugin.py /app
 ADD requirements.txt /app
