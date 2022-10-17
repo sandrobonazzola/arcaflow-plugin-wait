@@ -5,7 +5,7 @@ RUN mkdir /app
 # this is to satisfy arcaflow-plugin-image-builder but the local license file is the same.
 ADD https://raw.githubusercontent.com/arcalot/arcaflow-plugins/main/LICENSE /app
 ADD wait_plugin.py /app
-ADD test_wait_plugin.py /app
+ADD tests/test_wait_plugin.py /app
 ADD requirements.txt /app
 WORKDIR /app
 
