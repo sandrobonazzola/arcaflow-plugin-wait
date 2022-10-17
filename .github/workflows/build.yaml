@@ -11,6 +11,20 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Install build tools
+        run: python3 -m pip install --upgrade build
+      - name: Test python build
+        run: python3 -m build
+      - name: Upload built artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: builds
+          path: dist
+          if-no-files-found: error
       - name: Build image
         run: docker-compose build
       - name: Run plugin
