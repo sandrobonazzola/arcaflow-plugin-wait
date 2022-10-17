@@ -1,2 +1,2 @@
-git+https://github.com/arcalot/arcaflow-plugin-sdk-python.git@main
+arcaflow-plugin-sdk>=0.8.0
 coverage
