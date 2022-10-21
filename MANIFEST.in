@@ -1,5 +1,0 @@
-include *.yaml
-include Dockerfile
-include MANIFEST.in
-include requirements.txt
-recursive-include tests *
