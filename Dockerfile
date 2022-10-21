@@ -1,15 +1,18 @@
 FROM quay.io/centos/centos:stream8
 
-RUN dnf -y module install python39 && dnf -y install python39 python39-pip
+RUN dnf -y module install python39 && dnf --setopt=tsflags=nodocs -y install python39 python39-pip && dnf clean all
 RUN mkdir /app
 # this is to satisfy arcaflow-plugin-image-builder but the local license file is the same.
-ADD https://raw.githubusercontent.com/arcalot/arcaflow-plugins/main/LICENSE /app
-ADD wait_plugin.py /app
-ADD tests/test_wait_plugin.py /app
-ADD requirements.txt /app
+ADD https://raw.githubusercontent.com/arcalot/arcaflow-plugins/main/LICENSE /app/
+ADD README.md /app/
+ADD wait_plugin.py /app/
+ADD tests/test_wait_plugin.py /app/
+ADD poetry.lock pyproject.toml /app/
 WORKDIR /app
 
-RUN pip3 install -r requirements.txt
+RUN pip3 install poetry
+RUN poetry config virtualenvs.create false
+RUN poetry install
 RUN python3 -m coverage run test_wait_plugin.py
 RUN python3 -m coverage html -d /htmlcov --omit=/usr/local/*
 

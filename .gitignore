@@ -2,3 +2,5 @@ __pycache__
 .idea
 *.iml
 venv/
+.pre-commit-config.yaml
+dist
