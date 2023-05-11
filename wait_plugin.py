@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
+import signal
 import sys
+import time
 import typing
 from dataclasses import dataclass, field
 from time import sleep
@@ -36,6 +38,7 @@ class ErrorOutput:
     error: str
 
 
+
 @plugin.step(
     id="wait",
     name="Wait",
@@ -51,18 +54,34 @@ def wait(
     :return: the string identifying which output it is,
              as well the output structure
     """
+    start_time = time.time()
     try:
         sleep(params.seconds)
         return "success", SuccessOutput(
-            "Waited for {} seconds".format(params.seconds)
+            "Waited for {:0.2f} seconds".format(time.time() - start_time)
         )
-    except BaseException:
-        return "error", ErrorOutput(
-            "Failed waiting for {} seconds".format(params.seconds)
-        )
+    except BaseException as ex:
+        if EARLY_EXIT_KEY in ex:
+            return "aborted", ErrorOutput(
+                "Aborted after waiting for {:0.2f} seconds.".format(params.seconds, time.time() - start_time)
+            )
+        else:
+            return "error", ErrorOutput(
+                "Failed waiting for {} seconds. Took {:0.2f} seconds.".format(params.seconds, time.time() - start_time)
+            )
+
+
+EARLY_EXIT_KEY = "early-exit"
+
+
+def exit_early(*args):
+    raise Exception(EARLY_EXIT_KEY)
 
 
 if __name__ == "__main__":
+    signal.signal(signal.SIGINT, exit_early)
+    signal.signal(signal.SIGTERM, exit_early)
+
     sys.exit(plugin.run(plugin.build_schema(
         wait,
     )))

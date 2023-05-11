@@ -19,13 +19,13 @@ class WaitTest(unittest.TestCase):
 
         plugin.test_object_serialization(
             wait_plugin.SuccessOutput(
-                "Waited for {} seconds".format(WAIT_TIME)
+                "Waited for {:0.2f} seconds".format(WAIT_TIME)
             )
         )
 
         plugin.test_object_serialization(
             wait_plugin.ErrorOutput(
-                error="Failed waiting for {} seconds".format(WAIT_TIME)
+                error="Failed waiting for {:0.2f} seconds".format(WAIT_TIME)
             )
         )
 
@@ -40,7 +40,7 @@ class WaitTest(unittest.TestCase):
         self.assertEqual(
             output_data,
             wait_plugin.SuccessOutput(
-                "Waited for {} seconds".format(WAIT_TIME)
+                "Waited for {:0.2f} seconds".format(WAIT_TIME)
             )
         )
 
