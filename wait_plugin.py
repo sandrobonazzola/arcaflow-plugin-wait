@@ -57,9 +57,14 @@ def wait(
     start_time = time.time()
     try:
         sleep(params.seconds)
-        return "success", SuccessOutput(
-            "Waited for {:0.2f} seconds".format(time.time() - start_time)
-        )
+        if finished_early:
+            return "aborted-incorrectly", ErrorOutput(
+                "Aborted after waiting for {:0.2f} seconds.".format(params.seconds, time.time() - start_time)
+            )
+        else:
+            return "success", SuccessOutput(
+                "Waited for {:0.2f} seconds".format(time.time() - start_time)
+            )
     except BaseException as ex:
         if EARLY_EXIT_KEY in ex:
             return "aborted", ErrorOutput(
@@ -72,9 +77,10 @@ def wait(
 
 
 EARLY_EXIT_KEY = "early-exit"
-
+finished_early = False
 
 def exit_early(*args):
+    finished_early = True
     raise Exception(EARLY_EXIT_KEY)
 
 
