@@ -20,16 +20,16 @@ class WaitTest(unittest.TestCase):
 
         plugin.test_object_serialization(
             wait_plugin.SuccessOutput(
-                "Waited {:0.2f} seconds after being scheduled to wait for {} seconds."
-                    .format(WAIT_TIME, WAIT_TIME),
+                "Waited {:0.2f} seconds after being scheduled to wait for"
+                " {} seconds.".format(WAIT_TIME, WAIT_TIME),
                 actual_wait_seconds=WAIT_TIME
             )
         )
 
         plugin.test_object_serialization(
             wait_plugin.ErrorOutput(
-                error="Aborted {:0.2f} seconds after being scheduled to wait for {} seconds."
-                    .format(PREMATURE_TIME, WAIT_TIME),
+                error="Aborted {:0.2f} seconds after being scheduled to wait"
+                " for {} seconds.".format(PREMATURE_TIME, WAIT_TIME),
                 actual_wait_seconds=PREMATURE_TIME
             )
         )
@@ -44,8 +44,8 @@ class WaitTest(unittest.TestCase):
         self.assertEqual("success", output_id)
         self.assertEqual(
             output_data.message,
-            "Waited {:0.2f} seconds after being scheduled to wait for {} seconds."
-                .format(output_data.actual_wait_seconds, WAIT_TIME)
+            "Waited {:0.2f} seconds after being scheduled to wait for {}"
+            " seconds.".format(output_data.actual_wait_seconds, WAIT_TIME)
         )
 
 

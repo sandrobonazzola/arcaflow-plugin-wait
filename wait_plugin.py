@@ -5,7 +5,6 @@ import sys
 import time
 import typing
 from dataclasses import dataclass, field
-from time import sleep
 from threading import Event
 
 from arcaflow_plugin_sdk import plugin, validation
@@ -42,6 +41,8 @@ class ErrorOutput:
 
 
 exit = Event()
+finished_early = False
+
 
 @plugin.step(
     id="wait",
@@ -62,25 +63,25 @@ def wait(
     exit.wait(params.seconds)
     if finished_early:
         actual_time = time.time() - start_time
-        return "aborted-incorrectly", ErrorOutput(
-            "Aborted {:0.2f} seconds after being scheduled to wait for {} seconds."
-                .format(actual_time, params.seconds),
+        return "cancelled_early", ErrorOutput(
+            "Aborted {:0.2f} seconds after being scheduled to wait for {}"
+            " seconds.".format(actual_time, params.seconds),
             actual_time
         )
     else:
         actual_time = time.time() - start_time
         return "success", SuccessOutput(
-            "Waited {:0.2f} seconds after being scheduled to wait for {} seconds."
-                .format(actual_time, params.seconds),
+            "Waited {:0.2f} seconds after being scheduled to wait for {}"
+            " seconds.".format(actual_time, params.seconds),
             actual_time
         )
 
-finished_early = False
-
 
 def exit_early(*args):
+    global finished_early
     finished_early = True
     exit.set()
+    time.sleep(0.5)
 
 
 if __name__ == "__main__":
