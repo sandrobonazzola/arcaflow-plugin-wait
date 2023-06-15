@@ -6,6 +6,7 @@ from arcaflow_plugin_sdk import plugin
 import wait_plugin
 
 WAIT_TIME = 0.1
+PREMATURE_TIME = 0.05
 
 
 class WaitTest(unittest.TestCase):
@@ -19,13 +20,17 @@ class WaitTest(unittest.TestCase):
 
         plugin.test_object_serialization(
             wait_plugin.SuccessOutput(
-                "Waited for {:0.2f} seconds".format(WAIT_TIME)
+                "Waited {:0.2f} seconds after being scheduled to wait for {} seconds."
+                    .format(WAIT_TIME, WAIT_TIME),
+                actual_wait_seconds=WAIT_TIME
             )
         )
 
         plugin.test_object_serialization(
             wait_plugin.ErrorOutput(
-                error="Failed waiting for {:0.2f} seconds".format(WAIT_TIME)
+                error="Aborted {:0.2f} seconds after being scheduled to wait for {} seconds."
+                    .format(PREMATURE_TIME, WAIT_TIME),
+                actual_wait_seconds=PREMATURE_TIME
             )
         )
 
@@ -38,10 +43,9 @@ class WaitTest(unittest.TestCase):
 
         self.assertEqual("success", output_id)
         self.assertEqual(
-            output_data,
-            wait_plugin.SuccessOutput(
-                "Waited for {:0.2f} seconds".format(WAIT_TIME)
-            )
+            output_data.message,
+            "Waited {:0.2f} seconds after being scheduled to wait for {} seconds."
+                .format(output_data.actual_wait_seconds, WAIT_TIME)
         )
 
 
