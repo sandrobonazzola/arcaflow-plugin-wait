@@ -21,4 +21,4 @@ jobs:
     needs: act
     uses: arcalot/arcaflow-docsgen/.github/workflows/reusable_workflow.yaml@main
     with:
-      plugin_path: "wait_plugin.py"
+      plugin_path: "arcaflow_plugin_wait/wait_plugin.py"
