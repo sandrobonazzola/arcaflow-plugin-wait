@@ -13,14 +13,7 @@ classifiers = [
 ]
 homepage = "https://github.com/arcalot/arcaflow-plugin-wait"
 packages = [
-   { include="wait_plugin.py", from=".arcaflow_plugin_wait"  },
-]
-include = [
-   { path="docker-compose.yaml", format="sdist" },
-   { path="wait.yaml", format="sdist" },
-   { path="tests", format="sdist" },
-   { path="poetry.lock", format="sdist" },
-   { path="Dockerfile", format="sdist" },
+   { include="wait_plugin.py", from="./arcaflow_plugin_wait"  },
 ]
 
 [tool.poetry.dependencies]
