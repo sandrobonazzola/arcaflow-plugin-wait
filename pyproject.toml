@@ -18,10 +18,10 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.9"
-arcaflow-plugin-sdk = "^0.9.0"
+arcaflow-plugin-sdk = "^0.10.3"
 
 [tool.poetry.dev-dependencies]
-coverage = "^6.5.0"
+coverage = "^7.0.0"
 
 [build-system]
 requires = ["poetry-core"]
