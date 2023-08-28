@@ -7,7 +7,7 @@ import typing
 from dataclasses import dataclass, field
 from threading import Event
 
-from arcaflow_plugin_sdk import plugin, validation
+from arcaflow_plugin_sdk import plugin, validation, predefined_schemas
 
 
 @dataclass
@@ -40,54 +40,64 @@ class ErrorOutput:
     actual_wait_seconds: float
 
 
-exit = Event()
-finished_early = False
+class WaitStep:
+    exit = Event()
+    finished_early = False
 
 
-@plugin.step(
-    id="wait",
-    name="Wait",
-    description="Waits for the given amount of time",
-    outputs={"success": SuccessOutput, "error": ErrorOutput},
-)
-def wait(
-    params: InputParams
-) -> typing.Tuple[str, typing.Union[SuccessOutput, ErrorOutput]]:
-    """
-    :param params:
-
-    :return: the string identifying which output it is,
-             as well the output structure
-    """
-    start_time = time.time()
-    exit.wait(params.seconds)
-    if finished_early:
-        actual_time = time.time() - start_time
-        return "cancelled_early", ErrorOutput(
-            "Aborted {:0.2f} seconds after being scheduled to wait for {}"
-            " seconds.".format(actual_time, params.seconds),
-            actual_time
-        )
-    else:
-        actual_time = time.time() - start_time
-        return "success", SuccessOutput(
-            "Waited {:0.2f} seconds after being scheduled to wait for {}"
-            " seconds.".format(actual_time, params.seconds),
-            actual_time
-        )
+    @plugin.signal_handler(
+        id=predefined_schemas.cancel_signal_schema.id,
+        name=predefined_schemas.cancel_signal_schema.display.name,
+        description=predefined_schemas.cancel_signal_schema.display.description,
+        icon=predefined_schemas.cancel_signal_schema.display.icon,
+    )
+    def cancelInput(self, input: predefined_schemas.cancelInput):
+        # First, let it know that this is the reason it's exiting.
+        self.finished_early = True
+        # Now signal to exit.
+        self.exit.set()
 
 
-def exit_early(*args):
-    global finished_early
-    finished_early = True
-    exit.set()
-    time.sleep(0.5)
+    @plugin.step_with_signals(
+        id="wait",
+        name="Wait",
+        description="Waits for the given amount of time",
+        outputs={"success": SuccessOutput, "error": ErrorOutput},
+        signal_handlers={},
+        signal_emitters={},
+        step_object_constructor=lambda : WaitStep(),
+    )
+    def wait(
+        self,
+        params: InputParams,
+    ) -> typing.Tuple[str, typing.Union[SuccessOutput, ErrorOutput]]:
+        """
+        :param params:
+
+        :return: the string identifying which output it is,
+                as well the output structure
+        """
+        start_time = time.time()
+        self.exit.wait(params.seconds)
+        if self.finished_early:
+            actual_time = time.time() - start_time
+            return "cancelled_early", ErrorOutput(
+                "Aborted {:0.2f} seconds after being scheduled to wait for {}"
+                " seconds.".format(actual_time, params.seconds),
+                actual_time
+            )
+        else:
+            actual_time = time.time() - start_time
+            return "success", SuccessOutput(
+                "Waited {:0.2f} seconds after being scheduled to wait for {}"
+                " seconds.".format(actual_time, params.seconds),
+                actual_time
+            )
+
+
 
 
 if __name__ == "__main__":
-    for sig in ('TERM', 'HUP', 'INT'):
-        signal.signal(getattr(signal, 'SIG'+sig), exit_early)
-
     sys.exit(plugin.run(plugin.build_schema(
-        wait,
+        WaitStep.wait,
     )))
