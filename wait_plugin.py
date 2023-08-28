@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import signal
 import sys
 import time
 import typing
@@ -44,11 +43,11 @@ class WaitStep:
     exit = Event()
     finished_early = False
 
-
     @plugin.signal_handler(
         id=predefined_schemas.cancel_signal_schema.id,
         name=predefined_schemas.cancel_signal_schema.display.name,
-        description=predefined_schemas.cancel_signal_schema.display.description,
+        description=predefined_schemas.cancel_signal_schema.display.
+        description,
         icon=predefined_schemas.cancel_signal_schema.display.icon,
     )
     def cancelInput(self, input: predefined_schemas.cancelInput):
@@ -57,7 +56,6 @@ class WaitStep:
         # Now signal to exit.
         self.exit.set()
 
-
     @plugin.step_with_signals(
         id="wait",
         name="Wait",
@@ -65,7 +63,7 @@ class WaitStep:
         outputs={"success": SuccessOutput, "error": ErrorOutput},
         signal_handlers={},
         signal_emitters={},
-        step_object_constructor=lambda : WaitStep(),
+        step_object_constructor=lambda: WaitStep(),
     )
     def wait(
         self,
@@ -93,8 +91,6 @@ class WaitStep:
                 " seconds.".format(actual_time, params.seconds),
                 actual_time
             )
-
-
 
 
 if __name__ == "__main__":
