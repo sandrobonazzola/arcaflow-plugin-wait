@@ -50,7 +50,7 @@ class WaitStep:
         description,
         icon=predefined_schemas.cancel_signal_schema.display.icon,
     )
-    def cancelInput(self, input: predefined_schemas.cancelInput):
+    def cancel_step(self, input: predefined_schemas.cancelInput):
         # First, let it know that this is the reason it's exiting.
         self.finished_early = True
         # Now signal to exit.
@@ -61,8 +61,8 @@ class WaitStep:
         name="Wait",
         description="Waits for the given amount of time",
         outputs={"success": SuccessOutput, "error": ErrorOutput},
-        signal_handlers={},
-        signal_emitters={},
+        signal_handler_method_names=["cancel_step"],
+        signal_emitters=[],
         step_object_constructor=lambda: WaitStep(),
     )
     def wait(

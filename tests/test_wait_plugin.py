@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 import unittest
 
-from arcaflow_plugin_sdk import plugin
+from arcaflow_plugin_sdk import plugin, predefined_schemas
 
+import time
 import wait_plugin
 
 WAIT_TIME = 0.1
+SKIPPED_WAIT_TIME = 1.0
 PREMATURE_TIME = 0.05
 
 
@@ -35,11 +37,12 @@ class WaitTest(unittest.TestCase):
         )
 
     def test_functional(self):
+        # Test simple wait
         input_params = wait_plugin.InputParams(
             seconds=WAIT_TIME
         )
-
-        output_id, output_data = wait_plugin.wait(input_params)
+        wait_step = wait_plugin.WaitStep()
+        output_id, output_data = wait_step.wait(input_params)
 
         self.assertEqual("success", output_id)
         self.assertEqual(
@@ -47,6 +50,17 @@ class WaitTest(unittest.TestCase):
             "Waited {:0.2f} seconds after being scheduled to wait for {}"
             " seconds.".format(output_data.actual_wait_seconds, WAIT_TIME)
         )
+        # Test cancellation
+        input_params = wait_plugin.InputParams(
+            seconds=SKIPPED_WAIT_TIME
+        )
+        wait_step = wait_plugin.WaitStep()
+        wait_step.cancel_step(wait_step, predefined_schemas.cancelInput())
+        start_time = time.time()
+        output_id, output_data = wait_step.wait(input_params)
+        run_duration = time.time() - start_time
+        # It starts in a cancelled state, so it should be plenty less than the full wait time.
+        self.assertLess(run_duration, SKIPPED_WAIT_TIME / 2.0)
 
 
 if __name__ == '__main__':
