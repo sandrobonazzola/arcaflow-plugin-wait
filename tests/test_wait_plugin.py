@@ -59,7 +59,8 @@ class WaitTest(unittest.TestCase):
         start_time = time.time()
         output_id, output_data = wait_step.wait(input_params)
         run_duration = time.time() - start_time
-        # It starts in a cancelled state, so it should be plenty less than the full wait time.
+        # It starts in a cancelled state, so it should be plenty less than
+        # the full wait time.
         self.assertLess(run_duration, SKIPPED_WAIT_TIME / 2.0)
 
 
