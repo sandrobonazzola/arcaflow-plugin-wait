@@ -17,7 +17,7 @@ PyYAML = "^6.0.1"
 type = "git"
 url = "https://github.com/arcalot/arcaflow-plugin-sdk-python.git"
 reference = "signals"
-resolved_reference = "ca012ed853c218ab815a8ea51c5fbf4c7aec14b1"
+resolved_reference = "21e59bf2bb5fc722f17a2b181836d60b031a8a99"
 
 [[package]]
 name = "cbor2"
