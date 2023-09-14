@@ -1,24 +1,46 @@
-FROM quay.io/centos/centos:stream8
+# Package path for this plugin module relative to the repo root
+ARG package=arcaflow_plugin_wait
 
-RUN dnf -y module install python39 && dnf --setopt=tsflags=nodocs -y install python39 python39-pip && dnf clean all
-RUN mkdir /app
-# this is to satisfy arcaflow-plugin-image-builder but the local license file is the same.
-ADD https://raw.githubusercontent.com/arcalot/arcaflow-plugin-template-python/main/LICENSE /app/
-ADD README.md /app/
-ADD wait_plugin.py /app/
-ADD tests/test_wait_plugin.py /app/
-ADD poetry.lock pyproject.toml /app/
-WORKDIR /app
+# STAGE 1 -- Build module dependencies and run tests
+# The 'poetry' and 'coverage' modules are installed and verson-controlled in the
+# quay.io/arcalot/arcaflow-plugin-baseimage-python-buildbase image to limit drift
+FROM quay.io/arcalot/arcaflow-plugin-baseimage-python-buildbase:0.2.0@sha256:7b72424c08c51d1bb6215fac0e002fd9d406b6321dcd74233ea53ec653280be8 as build
+ARG package
 
-RUN pip3 install poetry
-RUN poetry config virtualenvs.create false
-RUN poetry install
-RUN python3 -m coverage run test_wait_plugin.py
-RUN python3 -m coverage html -d /htmlcov --omit=/usr/local/*
+COPY poetry.lock /app/
+COPY pyproject.toml /app/
 
-VOLUME /config
+# Convert the dependencies from poetry to a static requirements.txt file
+RUN python -m poetry install --without dev --no-root \
+ && python -m poetry export -f requirements.txt --output requirements.txt --without-hashes
 
-ENTRYPOINT ["python3", "/app/wait_plugin.py"]
+COPY ${package}/ /app/${package}
+COPY tests /app/${package}/tests
+
+ENV PYTHONPATH /app/${package}
+WORKDIR /app/${package}
+
+# Run tests and return coverage analysis
+RUN python -m coverage run tests/test_${package}.py \
+ && python -m coverage html -d /htmlcov --omit=/usr/local/*
+
+
+# STAGE 2 -- Build final plugin image
+FROM quay.io/arcalot/arcaflow-plugin-baseimage-python-osbase:0.2.0@sha256:a57baf7714d13b4fb0a01551990eed927b1f1251cd502ad01bcb05ffeeff31d8
+ARG package
+
+COPY --from=build /app/requirements.txt /app/
+COPY --from=build /htmlcov /htmlcov/
+COPY LICENSE /app/
+COPY README.md /app/
+COPY ${package}/ /app/${package}
+
+# Install all plugin dependencies from the generated requirements.txt file
+RUN python -m pip install -r requirements.txt
+
+WORKDIR /app/${package}
+
+ENTRYPOINT ["python", "wait_plugin.py"]
 CMD []
 
 LABEL org.opencontainers.image.source="https://github.com/arcalot/arcaflow-plugin-wait"

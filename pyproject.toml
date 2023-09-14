@@ -13,22 +13,15 @@ classifiers = [
 ]
 homepage = "https://github.com/arcalot/arcaflow-plugin-wait"
 packages = [
-   { include="wait_plugin.py", from="."  },
-]
-include = [
-   { path="docker-compose.yaml", format="sdist" },
-   { path="wait.yaml", format="sdist" },
-   { path="tests", format="sdist" },
-   { path="poetry.lock", format="sdist" },
-   { path="Dockerfile", format="sdist" },
+   { include="wait_plugin.py", from="./arcaflow_plugin_wait"  },
 ]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-arcaflow-plugin-sdk = { git = "https://github.com/arcalot/arcaflow-plugin-sdk-python.git", branch = "signals" } #"^0.9.0"
+arcaflow-plugin-sdk = { git = "https://github.com/arcalot/arcaflow-plugin-sdk-python.git", branch = "signals" } #"^0.10.3"
 
 [tool.poetry.dev-dependencies]
-coverage = "^6.5.0"
+coverage = "^7.0.0"
 
 [build-system]
 requires = ["poetry-core"]
