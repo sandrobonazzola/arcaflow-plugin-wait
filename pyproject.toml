@@ -13,7 +13,7 @@ classifiers = [
 ]
 homepage = "https://github.com/arcalot/arcaflow-plugin-wait"
 packages = [
-   { include="wait_plugin.py", from="./arcaflow_plugin_wait"  },
+   { include="arcaflow_plugin_wait.py", from="./arcaflow_plugin_wait"  },
 ]
 
 [tool.poetry.dependencies]
