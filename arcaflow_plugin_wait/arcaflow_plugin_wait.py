@@ -54,7 +54,7 @@ class WaitStep:
         # First, let it know that this is the reason it's exiting.
         self.finished_early = True
         # Now signal to exit.
-        self.exit.set()
+        #self.exit.set()
 
     @plugin.step_with_signals(
         id="wait",
