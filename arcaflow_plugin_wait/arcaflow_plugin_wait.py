@@ -60,7 +60,11 @@ class WaitStep:
         id="wait",
         name="Wait",
         description="Waits for the given amount of time",
-        outputs={"success": SuccessOutput, "error": ErrorOutput, "cancelled_early": ErrorOutput},
+        outputs={
+            "success": SuccessOutput,
+            "error": ErrorOutput,
+            "cancelled_early": ErrorOutput
+        },
         signal_handler_method_names=["cancel_step"],
         signal_emitters=[],
         step_object_constructor=lambda: WaitStep(),
