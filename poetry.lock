@@ -2,22 +2,18 @@
 
 [[package]]
 name = "arcaflow-plugin-sdk"
-version = "0.0.0"
+version = "0.11.0"
 description = "Plugin SDK for Python for the Arcaflow workflow engine"
 optional = false
-python-versions = "^3.9"
-files = []
-develop = false
+python-versions = ">=3.9,<4.0"
+files = [
+    {file = "arcaflow_plugin_sdk-0.11.0-py3-none-any.whl", hash = "sha256:c481c1fdfc51f2c056c73a0e016f04617813eda03f0debf1e5bc43b22b045e6f"},
+    {file = "arcaflow_plugin_sdk-0.11.0.tar.gz", hash = "sha256:3a49a85037b88f5f4ed6b51c9a78428f6bbb57e47022484185721faf2c853535"},
+]
 
 [package.dependencies]
-cbor2 = "^5.4.3"
-PyYAML = "^6.0.1"
-
-[package.source]
-type = "git"
-url = "https://github.com/arcalot/arcaflow-plugin-sdk-python.git"
-reference = "signals"
-resolved_reference = "df69b6743c6f2592b6ff4d4acccfcea192a21427"
+cbor2 = ">=5.4.3,<6.0.0"
+PyYAML = ">=6.0.1,<7.0.0"
 
 [[package]]
 name = "cbor2"
@@ -194,4 +190,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "a9c28cd3bba1e2caea5392ad21809fa32b5a97037f5fb7c34a9f2c427fb7e6b7"
+content-hash = "ba24832501fad19bc803c6db30274c621cfee4c18ff3bd19c2a9f38edf21c387"
