@@ -36,7 +36,6 @@ COPY README.md /app/
 COPY ${package}/ /app/${package}
 
 # Install all plugin dependencies from the generated requirements.txt file
-RUN dnf install git -y # REMOVE THIS BEFORE MERGE, after updating to released SDK.
 RUN python -m pip install -r requirements.txt
 
 WORKDIR /app/${package}
