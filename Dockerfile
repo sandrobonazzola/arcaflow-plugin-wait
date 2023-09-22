@@ -40,7 +40,7 @@ RUN python -m pip install -r requirements.txt
 
 WORKDIR /app/${package}
 
-ENTRYPOINT ["python", "wait_plugin.py"]
+ENTRYPOINT ["python", "arcaflow_plugin_wait.py"]
 CMD []
 
 LABEL org.opencontainers.image.source="https://github.com/arcalot/arcaflow-plugin-wait"

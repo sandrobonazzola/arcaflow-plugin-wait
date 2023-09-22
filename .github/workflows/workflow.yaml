@@ -24,4 +24,4 @@ jobs:
       contents: write
       pull-requests: write
     with:
-      plugin_path: "arcaflow_plugin_wait/wait_plugin.py"
+      plugin_path: "arcaflow_plugin_wait/arcaflow_plugin_wait.py"

@@ -41,15 +41,42 @@ Waits for the given amount of time
 ### Outputs
 
 
+#### cancelled_early
+
+<table><tbody>
+<tr><th>Type:</th><td><code>scope</code></td><tr><th>Root object:</th><td>ErrorOutput</td></tr>
+<tr><th>Properties</th><td><details><summary>actual_wait_seconds (<code>float</code>)</summary>
+                <table><tbody><tr><th>Required:</th><td>Yes</td></tr><tr><th>Type:</th><td><code>float</code></td>
+</tbody></table>
+            </details><details><summary>error (<code>string</code>)</summary>
+                <table><tbody><tr><th>Required:</th><td>Yes</td></tr><tr><th>Type:</th><td><code>string</code></td></tbody></table>
+            </details></td></tr>
+<tr><td colspan="2"><details><summary><strong>Objects</strong></summary><details><summary>ErrorOutput (<code>object</code>)</summary>
+            <table><tbody><tr><th>Type:</th><td><code>object</code></td><tr><th>Properties</th><td><details><summary>actual_wait_seconds (<code>float</code>)</summary>
+        <table><tbody><tr><th>Required:</th><td>Yes</td></tr><tr><th>Type:</th><td><code>float</code></td>
+</tbody></table>
+        </details><details><summary>error (<code>string</code>)</summary>
+        <table><tbody><tr><th>Required:</th><td>Yes</td></tr><tr><th>Type:</th><td><code>string</code></td></tbody></table>
+        </details></td></tr>
+</tbody></table>
+        </details></details></td></tr>
+</tbody></table>
+
 #### error
 
 <table><tbody>
 <tr><th>Type:</th><td><code>scope</code></td><tr><th>Root object:</th><td>ErrorOutput</td></tr>
-<tr><th>Properties</th><td><details><summary>error (<code>string</code>)</summary>
+<tr><th>Properties</th><td><details><summary>actual_wait_seconds (<code>float</code>)</summary>
+                <table><tbody><tr><th>Required:</th><td>Yes</td></tr><tr><th>Type:</th><td><code>float</code></td>
+</tbody></table>
+            </details><details><summary>error (<code>string</code>)</summary>
                 <table><tbody><tr><th>Required:</th><td>Yes</td></tr><tr><th>Type:</th><td><code>string</code></td></tbody></table>
             </details></td></tr>
 <tr><td colspan="2"><details><summary><strong>Objects</strong></summary><details><summary>ErrorOutput (<code>object</code>)</summary>
-            <table><tbody><tr><th>Type:</th><td><code>object</code></td><tr><th>Properties</th><td><details><summary>error (<code>string</code>)</summary>
+            <table><tbody><tr><th>Type:</th><td><code>object</code></td><tr><th>Properties</th><td><details><summary>actual_wait_seconds (<code>float</code>)</summary>
+        <table><tbody><tr><th>Required:</th><td>Yes</td></tr><tr><th>Type:</th><td><code>float</code></td>
+</tbody></table>
+        </details><details><summary>error (<code>string</code>)</summary>
         <table><tbody><tr><th>Required:</th><td>Yes</td></tr><tr><th>Type:</th><td><code>string</code></td></tbody></table>
         </details></td></tr>
 </tbody></table>
@@ -60,11 +87,17 @@ Waits for the given amount of time
 
 <table><tbody>
 <tr><th>Type:</th><td><code>scope</code></td><tr><th>Root object:</th><td>SuccessOutput</td></tr>
-<tr><th>Properties</th><td><details><summary>message (<code>string</code>)</summary>
+<tr><th>Properties</th><td><details><summary>actual_wait_seconds (<code>float</code>)</summary>
+                <table><tbody><tr><th>Required:</th><td>Yes</td></tr><tr><th>Type:</th><td><code>float</code></td>
+</tbody></table>
+            </details><details><summary>message (<code>string</code>)</summary>
                 <table><tbody><tr><th>Required:</th><td>Yes</td></tr><tr><th>Type:</th><td><code>string</code></td></tbody></table>
             </details></td></tr>
 <tr><td colspan="2"><details><summary><strong>Objects</strong></summary><details><summary>SuccessOutput (<code>object</code>)</summary>
-            <table><tbody><tr><th>Type:</th><td><code>object</code></td><tr><th>Properties</th><td><details><summary>message (<code>string</code>)</summary>
+            <table><tbody><tr><th>Type:</th><td><code>object</code></td><tr><th>Properties</th><td><details><summary>actual_wait_seconds (<code>float</code>)</summary>
+        <table><tbody><tr><th>Required:</th><td>Yes</td></tr><tr><th>Type:</th><td><code>float</code></td>
+</tbody></table>
+        </details><details><summary>message (<code>string</code>)</summary>
         <table><tbody><tr><th>Required:</th><td>Yes</td></tr><tr><th>Type:</th><td><code>string</code></td></tbody></table>
         </details></td></tr>
 </tbody></table>
