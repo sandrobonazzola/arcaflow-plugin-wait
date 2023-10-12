@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import unittest
 
-from arcaflow_plugin_sdk import plugin, predefined_schemas
+from arcaflow_plugin_sdk import plugin
 
 import time
 import arcaflow_plugin_wait
@@ -50,18 +50,6 @@ class WaitTest(unittest.TestCase):
             "Waited {:0.2f} seconds after being scheduled to wait for {}"
             " seconds.".format(output_data.actual_wait_seconds, WAIT_TIME)
         )
-        # Test cancellation
-        input_params = arcaflow_plugin_wait.InputParams(
-            seconds=SKIPPED_WAIT_TIME
-        )
-        wait_step = arcaflow_plugin_wait.WaitStep()
-        wait_step.cancel_step(wait_step, predefined_schemas.cancelInput())
-        start_time = time.time()
-        output_id, output_data = wait_step.wait(input_params)
-        run_duration = time.time() - start_time
-        # It starts in a cancelled state, so it should be plenty less than
-        # the full wait time.
-        self.assertLess(run_duration, SKIPPED_WAIT_TIME / 2.0)
 
 
 if __name__ == '__main__':

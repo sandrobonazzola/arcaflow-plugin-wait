@@ -49,7 +49,6 @@ class ErrorOutput:
     },
 )
 def wait(
-    self,
     params: InputParams,
 ) -> typing.Tuple[str, typing.Union[SuccessOutput, ErrorOutput]]:
     """
