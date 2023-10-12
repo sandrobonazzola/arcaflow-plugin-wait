@@ -57,7 +57,7 @@ def wait(
         as well the output structure
     """
     start_time = time.time()
-    self.exit.wait(params.seconds)
+    time.sleep(params.seconds)
     actual_time = time.time() - start_time
     return "success", SuccessOutput(
         "Waited {:0.2f} seconds after being scheduled to wait for {}"
