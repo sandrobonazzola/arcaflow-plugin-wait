@@ -39,38 +39,35 @@ class ErrorOutput:
     actual_wait_seconds: float
 
 
-class WaitStep:
-
-    @plugin.step(
-        id="wait",
-        name="Wait",
-        description="Waits for the given amount of time",
-        outputs={
-            "success": SuccessOutput,
-            "error": ErrorOutput,
-        },
+@plugin.step(
+    id="wait",
+    name="Wait",
+    description="Waits for the given amount of time",
+    outputs={
+        "success": SuccessOutput,
+        "error": ErrorOutput,
+    },
+)
+def wait(
+    self,
+    params: InputParams,
+) -> typing.Tuple[str, typing.Union[SuccessOutput, ErrorOutput]]:
+    """
+    :param params:
+    :return: the string identifying which output it is,
+        as well the output structure
+    """
+    start_time = time.time()
+    self.exit.wait(params.seconds)
+    actual_time = time.time() - start_time
+    return "success", SuccessOutput(
+        "Waited {:0.2f} seconds after being scheduled to wait for {}"
+        " seconds.".format(actual_time, params.seconds),
+        actual_time
     )
-    def wait(
-        self,
-        params: InputParams,
-    ) -> typing.Tuple[str, typing.Union[SuccessOutput, ErrorOutput]]:
-        """
-        :param params:
-
-        :return: the string identifying which output it is,
-                as well the output structure
-        """
-        start_time = time.time()
-        self.exit.wait(params.seconds)
-        actual_time = time.time() - start_time
-        return "success", SuccessOutput(
-            "Waited {:0.2f} seconds after being scheduled to wait for {}"
-            " seconds.".format(actual_time, params.seconds),
-            actual_time
-        )
 
 
 if __name__ == "__main__":
     sys.exit(plugin.run(plugin.build_schema(
-        WaitStep.wait,
+        wait,
     )))
