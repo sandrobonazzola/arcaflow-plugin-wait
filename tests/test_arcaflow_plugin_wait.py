@@ -42,7 +42,7 @@ class WaitTest(unittest.TestCase):
             seconds=WAIT_TIME
         )
         wait_step = arcaflow_plugin_wait.WaitStep()
-        output_id, output_data = wait_step.wait(input_params)
+        output_id, output_data = wait_step.wait(self.id(), input_params)
 
         self.assertEqual("success", output_id)
         self.assertEqual(
