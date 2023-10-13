@@ -57,7 +57,7 @@ class WaitTest(unittest.TestCase):
         wait_step = arcaflow_plugin_wait.WaitStep()
         wait_step.cancel_step(wait_step, predefined_schemas.cancelInput())
         start_time = time.time()
-        output_id, output_data = wait_step.wait(input_params)
+        output_id, output_data = wait_step.wait(self.id(), input_params)
         run_duration = time.time() - start_time
         # It starts in a cancelled state, so it should be plenty less than
         # the full wait time.
