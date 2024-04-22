@@ -26,12 +26,12 @@ Waits for the given amount of time
 <table><tbody>
 <tr><th>Type:</th><td><code>scope</code></td><tr><th>Root object:</th><td>InputParams</td></tr>
 <tr><th>Properties</th><td><details><summary>seconds (<code>float</code>)</summary>
-                <table><tbody><tr><th>Name:</th><td>seconds</td></tr><tr><th>Description:</th><td>number of seconds to wait as a floating point number for subsecond precision.</td></tr><tr><th>Required:</th><td>Yes</td></tr><tr><th>Type:</th><td><code>float</code></td><tr><th>Minimum:</th><td>0</td></tr>
+                <table><tbody><tr><th>Name:</th><td>seconds</td></tr><tr><th>Description:</th><td width="500">number of seconds to wait as a floating point number for subsecond precision.</td></tr><tr><th>Required:</th><td>Yes</td></tr><tr><th>Type:</th><td><code>float</code></td><tr><th>Minimum:</th><td>0</td></tr>
 </tbody></table>
             </details></td></tr>
 <tr><td colspan="2"><details><summary><strong>Objects</strong></summary><details><summary>InputParams (<code>object</code>)</summary>
             <table><tbody><tr><th>Type:</th><td><code>object</code></td><tr><th>Properties</th><td><details><summary>seconds (<code>float</code>)</summary>
-        <table><tbody><tr><th>Name:</th><td>seconds</td></tr><tr><th>Description:</th><td>number of seconds to wait as a floating point number for subsecond precision.</td></tr><tr><th>Required:</th><td>Yes</td></tr><tr><th>Type:</th><td><code>float</code></td><tr><th>Minimum:</th><td>0</td></tr>
+        <table><tbody><tr><th>Name:</th><td>seconds</td></tr><tr><th>Description:</th><td width="500">number of seconds to wait as a floating point number for subsecond precision.</td></tr><tr><th>Required:</th><td>Yes</td></tr><tr><th>Type:</th><td><code>float</code></td><tr><th>Minimum:</th><td>0</td></tr>
 </tbody></table>
         </details></td></tr>
 </tbody></table>
